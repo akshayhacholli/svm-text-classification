@@ -1,0 +1,81 @@
+Details about the program
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	A program which does text classification using SVM classifier. It uses a external library LIBLINEAR which does the training and classification.
+	The program does the following things                                                                                    
+		1. It reads the input corpus along with class names
+		2. Then reads each file and creates a corresponding training file
+		3. Then this training file is passed to the SVM classifier which trains the SVM
+		4. After training, a model file is generated which can be later used to test/classify documents(no need to train again)
+		5. Every test file is converted into proper format which can be read by library
+		6. This test file is passed as input to the trained SVM classifier which outputs the classified values.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Instructions for running the program on UTD CS machines
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	1) Java is installed
+	2) Program uses stopwords file to filter out stopwords therefore the source folder must contain file with name stopwords
+	3) Source code folder must have write permission as the program generates train,test,unique_words and model file
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Operating system : Tested on windows and ubuntu machine
+Assumption : Java path is set
+Files : Classifier.java, Stemmer.java, stopwords, Test.java, Test123.java, Train.java
+		lilinear\ArraySorter.java, lilinear\DoubleArrayPointer.java, lilinear\Feature.java, lilinear\FeatureNode.java, lilinear\Function.java, lilinear\IntArrayPointer.java, lilinear\InvalidInputDataException.java, lilinear\L2R_L2_SvcFunction.java, lilinear\L2R_L2_SvrFunction.java, lilinear\L2R_LrFunction.java, lilinear\Linear.java, lilinear\Model.java, lilinear\Parameter.java, lilinear\Predict.java, lilinear\Problem.java, lilinear\SolverMCSVM_CS.java, lilinear\SolverType.java, lilinear\Train.java, lilinear\Tron.java
+
+Compilation : javac directory_path\*.java
+Execution command for training : java Train "path_to_the_file_containing_class_names" "path_to_the_folder_containing_training_files"
+Execution command for testing : java Test "path_to_the_file_containing_test_file_actual_classes" "path_to_the_folder_containing_testing_files"
+
+Input : Path of the Corpus
+Training Output : Model file
+Testing Output : Classified output
+
+Example: -
+
+--------------------------------------------------------------------------------------
+Training Example
+--------------------------------------------------------------------------------------
+{cslinux2:~/public_html/ml/project} javac *.java
+{cslinux2:~/public_html/ml/project} java Train project/class_name.txt project/train/
+Finished reading stopwords.
+Found 20 classes
+Started reading class folder
+Finished reading folder alt.atheism
+Finished reading folder comp.graphics
+Finished reading folder comp.os.ms-windows.misc
+Finished reading folder comp.sys.ibm.pc.hardware
+Finished reading folder comp.sys.mac.hardware
+Finished reading folder comp.windows.x
+Finished reading folder misc.forsale
+Finished reading folder rec.autos
+Finished reading folder rec.motorcycles
+Finished reading folder rec.sport.baseball
+Finished reading folder rec.sport.hockey
+Finished reading folder sci.crypt
+Finished reading folder sci.electronics
+Finished reading folder sci.med
+Finished reading folder sci.space
+Finished reading folder soc.religion.christian
+Finished reading folder talk.politics.guns
+Finished reading folder talk.politics.mideast
+Finished reading folder talk.politics.misc
+Finished reading folder talk.religion.misc
+Finished writing training file - train.txt
+Finished writing unique words file - unique_words.txt
+Time taken to build train file = 164419 msec
+Finished writing model file - model.txt
+Time taken to train SVM = 20336 msec
+
+--------------------------------------------------------------------------------------
+Testing Example
+--------------------------------------------------------------------------------------
+{cslinux2:~/public_html/ml/project} java Test project/dev_label.txt project/dev
+Finished reading stopwords.
+Found 2000 test instances
+Started reading test files
+Finished reading test files
+Finished writing test file - test.txt
+Time taken to build test file= 31792 msec
+Accuracy = 84.2500% (1685/2000)
+Time taken to classify = 3698 msec
+Finished writing output result file - result.txt
